@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     edit (index, row) {
-      this.$router.push({ path: '/discharge/disEdit' })
+      this.$router.push({ name: '综合编辑' })
     }
   }
 }

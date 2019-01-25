@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     edit (index, row) {
-      this.$router.push({ path: '/Removal/remEdit' })
+      this.$router.push({ name: '搬迁编辑' })
     }
   }
 }
