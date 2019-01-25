@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import publicEdit from '@/components/ProjectManagement/publicEdit'
-import publicDis from '@/components/discharge/publicDis'
-import publicRem from '@/components/Removal/publicRem'
+import publicEdit from '@/pages/ProjectManagement/publicEdit'
+import publicDis from '@/pages/discharge/publicDis'
+import publicRem from '@/pages/Removal/publicRem'
 
 Vue.use(Router)
 
@@ -16,13 +16,13 @@ let routes = [
       {
         path: '/',
         name: '项目管理',
-        component: () => import('@/components/ProjectManagement/projectPM'),
+        component: () => import('@/pages/ProjectManagement/projectPM'),
         hidden: true
       },
       {
         path: 'projectEdit',
         name: '项目编辑',
-        component: () => import('@/components/ProjectManagement/proEdit/projectEdit'),
+        component: () => import('@/pages/ProjectManagement/proEdit/projectEdit'),
         hidden: true
       }
     ]
@@ -35,12 +35,12 @@ let routes = [
       {
         path: '/',
         name: '综合防治',
-        component: () => import('@/components/discharge/discharge')
+        component: () => import('@/pages/discharge/discharge')
       },
       {
         path: 'disEdit',
         name: '综合编辑',
-        component: () => import('@/components/discharge/disEdit/disEdit')
+        component: () => import('@/pages/discharge/disEdit/disEdit')
       }
     ]
   },
@@ -52,12 +52,12 @@ let routes = [
       {
         path: '/',
         name: '避让搬迁',
-        component: () => import('@/components/Removal/removal')
+        component: () => import('@/pages/Removal/removal')
       },
       {
         path: 'remEdit',
         name: '搬迁编辑',
-        component: () => import('@/components/Removal/remEdit/remEdit')
+        component: () => import('@/pages/Removal/remEdit/remEdit')
       }
     ]
   }
