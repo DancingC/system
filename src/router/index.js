@@ -1,16 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import publicEdit from '@/pages/pm/project/publicEdit'
-import publicDis from '@/pages/pm/discharge/publicDis'
-import publicRem from '@/pages/pm/removal/publicRem'
+import layout from '@/pages/layout/layout'
 
 Vue.use(Router)
 
 let routes = [
   {
     path: '/pm/project',
-    component: publicEdit,
+    component: layout,
     name: '项目管理',
     children: [
       {
@@ -29,7 +27,7 @@ let routes = [
   },
   {
     path: '/pm/discharge',
-    component: publicDis,
+    component: layout,
     name: '综合防治',
     children: [
       {
@@ -46,7 +44,7 @@ let routes = [
   },
   {
     path: '/pm/removal',
-    component: publicRem,
+    component: layout,
     name: '避让搬迁',
     children: [
       {
