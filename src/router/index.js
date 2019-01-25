@@ -6,6 +6,7 @@ import layout from '@/pages/layout/layout'
 Vue.use(Router)
 
 let routes = [
+  // { path: '/login', component: () => import('@/pages/login/login'), hidden: true },
   {
     path: '/pm/project',
     component: layout,
