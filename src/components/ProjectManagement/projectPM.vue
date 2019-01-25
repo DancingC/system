@@ -67,48 +67,49 @@
 
 <script>
 export default {
-  data() {
+  name: 'proPM',
+  data () {
     return {
       formInline: {
         user: {
-          name: "",
-          date: "",
-          proName: "",
-          place: ""
+          name: '',
+          date: '',
+          proName: '',
+          place: ''
         }
       },
       tableData: [
         {
-          area: "船山区",
-          proName: "永兴镇灵通村言山坡危岩",
-          proType: "工程治理",
-          hazardType: "危岩",
-          controlPlan: "工程治理",
-          completeDate: "2013年12月30日",
-          capitalSource: "川国土资函 [2013] 505号、川财投 [2013] 53号",
-          cityFile: "",
-          IssuedCapital: "82.78",
-          completeInvestment: "77.5"
+          area: '船山区',
+          proName: '永兴镇灵通村言山坡危岩',
+          proType: '工程治理',
+          hazardType: '危岩',
+          controlPlan: '工程治理',
+          completeDate: '2013年12月30日',
+          capitalSource: '川国土资函 [2013] 505号、川财投 [2013] 53号',
+          cityFile: '',
+          IssuedCapital: '82.78',
+          completeInvestment: '77.5'
         },
         {
-          area: "船山区",
-          proName: "永兴镇灵通村言山坡危岩",
-          proType: "排危除险",
-          hazardType: "危岩",
-          controlPlan: "工程治理",
-          completeDate: "2013年12月30日",
-          capitalSource: "川国土资函 [2013] 505号、川财投 [2013] 53号",
-          cityFile: "",
-          IssuedCapital: "82.78",
-          completeInvestment: "77.5"
+          area: '船山区',
+          proName: '永兴镇灵通村言山坡危岩',
+          proType: '排危除险',
+          hazardType: '危岩',
+          controlPlan: '工程治理',
+          completeDate: '2013年12月30日',
+          capitalSource: '川国土资函 [2013] 505号、川财投 [2013] 53号',
+          cityFile: '',
+          IssuedCapital: '82.78',
+          completeInvestment: '77.5'
         }
       ]
-    };
+    }
   },
   methods: {
-    edit(index, row) {
-      this.$router.push({ name: "edit" });
+    edit (index, row) {
+      this.$router.push({ name: '项目编辑' })
     }
   }
-};
+}
 </script>

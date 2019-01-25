@@ -9,7 +9,7 @@
           light
           router
         >
-          <template v-for="item in $router.options.routes[0].children">
+          <template v-for="item in $router.options.routes">
             <el-menu-item :index="item.path" :key="item.path">{{item.name}}</el-menu-item>
           </template>
         </el-menu>
@@ -23,12 +23,7 @@
 
 <script>
 export default {
-  name: 'App',
-  watch: {
-    beforeRouteUpdate (to, from) {
-      console.log(to)
-    }
-  }
+  name: 'App'
 }
 </script>
 

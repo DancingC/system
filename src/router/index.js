@@ -1,42 +1,70 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import App from '../App'
-import TrainWork from '@/components/TrainWork/TrainWork'
-import discharge from '@/components/discharge/discharge'
-import removal from '@/components/Removal/removal'
+
+import publicEdit from '@/components/ProjectManagement/publicEdit'
+import publicDis from '@/components/discharge/publicDis'
+import publicRem from '@/components/Removal/publicRem'
 
 Vue.use(Router)
-console.log(App)
+
 let routes = [
   {
-    path: '/',
-    component: App,
+    path: '/ProjectManagement',
+    component: publicEdit,
+    name: '项目管理',
     children: [
       {
-        path: '/TrainWork',
-        component: TrainWork,
-        name: '防治体系'
+        path: '/',
+        name: '项目管理',
+        component: () => import('@/components/ProjectManagement/projectPM'),
+        hidden: true
       },
       {
-        path: '/discharge',
-        component: discharge,
-        name: '排危除险'
+        path: 'projectEdit',
+        name: '项目编辑',
+        component: () => import('@/components/ProjectManagement/proEdit/projectEdit'),
+        hidden: true
+      }
+    ]
+  },
+  {
+    path: '/discharge',
+    component: publicDis,
+    name: '综合防治',
+    children: [
+      {
+        path: '/',
+        name: '综合防治',
+        component: () => import('@/components/discharge/discharge')
       },
       {
-        path: '/removal',
-        component: removal,
-        name: '避让搬迁'
+        path: 'disEdit',
+        name: '综合编辑',
+        component: () => import('@/components/discharge/disEdit/disEdit')
+      }
+    ]
+  },
+  {
+    path: '/removal',
+    component: publicRem,
+    name: '避让搬迁',
+    children: [
+      {
+        path: '/',
+        name: '避让搬迁',
+        component: () => import('@/components/Removal/removal')
+      },
+      {
+        path: 'remEdit',
+        name: '搬迁编辑',
+        component: () => import('@/components/Removal/remEdit/remEdit')
       }
     ]
   }
 ]
 
-let router = new Router({
-  // 'mode': 'history', 去掉URL的#号，需要配置服务器http://router.vuejs.org/zh-cn/essentials/history-mode.html
-  'linkActiveClass': 'active',
-  routes
-})
-
 export default new Router({
-  router
+  'linkActiveClass': 'active',
+  mode: 'history',
+  routes
 })
