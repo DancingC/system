@@ -1,10 +1,10 @@
 <template>
   <el-tabs v-model="activeName" @tab-click="handleClick">
     <el-tab-pane label="治理工程" name="first">
-        <governance></governance>
+        <projectManagement></projectManagement>
     </el-tab-pane>
     <el-tab-pane label="排危除险" name="second">
-        <removeDanger></removeDanger>
+        <eliminationDangers></eliminationDangers>
     </el-tab-pane>
     <el-tab-pane label="搬迁避让" name="third">
         <removal></removal>
@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import governance from './governance'
-import removeDanger from './removeDanger'
+import projectManagement from './projectManagement'
+import eliminationDangers from './eliminationDangers'
 import removal from './removal'
   export default {
     components:{
-        governance,
-        removeDanger,
+        projectManagement,
+        eliminationDangers,
         removal
     },
     data() {

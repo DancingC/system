@@ -5,13 +5,14 @@
         :data="tableData"
         tooltip-effect="dark"
         border
+        @selection-change="handleSelectionChange"
         style="width:100%"
       >
-        <el-table-column type="index" label="序号" width="50"></el-table-column>
+        <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="city" label="市（州）"></el-table-column>
         <el-table-column prop="area" label="县（市、去）"></el-table-column>
         <el-table-column prop="proName" label="项目名称"></el-table-column>
-        <el-table-column label="现有工作基础（打√）">
+        <el-table-column label="现有工作基础">
           <el-table-column prop="cityFile" label="专家踏勘">
             <template slot-scope="scope">
               <el-checkbox>{{ scope.row.name }}</el-checkbox>
@@ -28,9 +29,14 @@
             </template>
           </el-table-column>
         </el-table-column>
-        <el-table-column prop="area" label="估算、概算及审定资金（万元）"></el-table-column>
-        <el-table-column prop="proName" label="本次申请资金（万元）"></el-table-column>
+        <el-table-column prop="area" label="估算、概算及审定资金（万）"></el-table-column>
+        <el-table-column prop="proName" label="本次申请资金（万）"></el-table-column>
         <el-table-column prop="proName" label="备注"></el-table-column>
+        <el-table-column label="操作" width="90">
+          <template slot-scope="scope">
+            <el-button type="text" size="small" class="remove">移除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
   </section>
@@ -74,9 +80,14 @@ export default {
           IssuedCapital: "82.78",
           completeInvestment: "77.5"
         }
-      ]
+      ],
+      multipleSelection: []
     };
   },
-  methods: {}
+  methods: {
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    }
+  }
 };
 </script>

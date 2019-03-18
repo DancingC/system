@@ -36,19 +36,28 @@
     <el-table :data="tableData" border style="width:100%">
       <el-table-column type="index" label="序号" width="50"></el-table-column>
       <el-table-column prop="date" label="时间"></el-table-column>
-      <el-table-column prop="area" label="市(州)"></el-table-column>
+      <el-table-column prop="city" label="市（州）"></el-table-column>
       <el-table-column prop="area" label="县(市、区)"></el-table-column>
+      <el-table-column prop="proName" label="项目名称"></el-table-column>
       <el-table-column label="现有工作基础">
-        <el-table-column prop="num" label="调查评价"></el-table-column>
-        <el-table-column prop="money" label="规划选址"></el-table-column>
+        <el-table-column prop="cityFile" label="专家踏勘">
+          <template slot-scope="scope">
+            <el-checkbox v-model="checked">{{ scope.row.name }}</el-checkbox>
+          </template>
+        </el-table-column>
+        <el-table-column prop="IssuedCapital" label="方案编制审查">
+          <template slot-scope="scope">
+            <el-checkbox v-model="checked">{{ scope.row.name }}</el-checkbox>
+          </template>
+        </el-table-column>
+        <el-table-column prop="completeInvestment" label="设计成果审查">
+          <template slot-scope="scope">
+            <el-checkbox v-model="checked">{{ scope.row.name }}</el-checkbox>
+          </template>
+        </el-table-column>
       </el-table-column>
-      <el-table-column prop="removehouse" label="搬迁户数">
-        <template slot-scope="scope">
-          <el-button type="text" @click="household">{{scope.row.removehouse}}</el-button>
-        </template>
-      </el-table-column>
-      <el-table-column prop="taskNum" label="估算、概算及审定资金（万）"></el-table-column>
-      <el-table-column prop="downMoney" label="本次申请资金（万）"></el-table-column>
+      <el-table-column prop="gs_capital" label="估算、概算审定资金（万）"></el-table-column>
+      <el-table-column prop="sq_capital" label="本次申请资金（万）"></el-table-column>
       <el-table-column prop="remark" label="备注"></el-table-column>
       <el-table-column prop="state" label="状态">
         <template slot-scope="scope">
@@ -63,7 +72,7 @@
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="90">
         <template slot-scope="scope" v-if="scope.row.state == 0">
-          <el-button @click="moneyAudit(scope.$index, scope.row)" type="text">审核</el-button>
+          <el-button @click="audit(scope.$index, scope.row)" type="text">审核</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -79,13 +88,8 @@
               <el-radio v-model="popform.radio" label="2">不同意</el-radio>
             </el-col>
         </el-row>
-        <el-row class="proName">
-          <el-form-item label="项目名称">
-            <el-input v-model="formInline.user.proName" placeholder="项目名称"></el-input>
-          </el-form-item>
-        </el-row>
-        <el-row :gutter="10" class="moneyAuditPop">
-          <el-form-item label="修改意见">
+        <el-row :gutter="10" class="auditPop">
+          <el-form-item label="备注">
             <el-input type="textarea" v-model="popform.remark"></el-input>
           </el-form-item>
         </el-row>
@@ -96,15 +100,6 @@
         </div>
         </el-row>
       </el-form>
-    </el-dialog>
-
-    <!-- 户数弹框 -->
-    <el-dialog class="addproject" :title="householdsTitle[houseename]" :visible.sync="lookHouseholds">
-      <el-table :data="households" border style="width: 100%" class="removeTable">
-            <el-table-column type="index" label="序号" width="60"></el-table-column>
-            <el-table-column prop="name" label="户主" width="180"></el-table-column>
-            <el-table-column prop="popremark" label="备注"></el-table-column>
-          </el-table>
     </el-dialog>
 
     <!-- 未通过弹框 -->
@@ -125,7 +120,10 @@ export default {
     return {
       formInline: {
         user: {
-          name: ""
+          name: "",
+          address: [],
+          place: "",
+          start_end_time: ""
         }
       },
       newAddproject: false,
@@ -136,58 +134,44 @@ export default {
         proName: "",
         radio: "",
         sheji: "",
-        auditMoney: "",
+        auditMoney:"",
         applyMoney: "",
-        remark: ""
+        remark:""
       },
       addproject: {
-        popname: "项目审核"
-      },
-      lookHouseholds: false,
-      houseename: '',
-      householdsTitle: {
-        detailTitle:'户数'
+        popname: "新增项目",
+        amend: "修改项目"
       },
       TimelinePop: false,
       timeLine: '',
       TimelineTitle: {
         detailTimeLine:'详情'
       },
+      checked: "",
       tableData: [
         {
+          date: "2019-03-10",
+          city: "遂宁市",
           area: "船山区",
-          removehouse: "1",
-          taskNum: "17",
-          downMoney: "61",
-          hushu: "1",
-          num: "1",
-          money: "4",
-          remark: "贫困户3户",
-          state: "0"
+          proName: "蓬溪县天福镇安家沟村4社庙子后坡不稳定斜坡",
+          gs_capital: "198.89",
+          sq_capital: "198.89",
+          state: "1"
         },
         {
+          date: "2019-03-10",
+          city: "遂宁市",
           area: "船山区",
-          removehouse: "1",
-          taskNum: "30",
-          downMoney: "105",
-          hushu: "15",
-          num: "10",
-          money: "35",
-          remark: "新房未修建完成未验收",
-          state: "1"
-        }
-      ],
-      households: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          proName: "蓬溪县天福镇安家沟村4社庙子后坡不稳定斜坡",
+          gs_capital: "198.89",
+          sq_capital: "198.89",
+          state: "0"
         }
       ]
     };
   },
   methods: {
-    moneyAudit(index, row) {
+    audit(index, row) {
       this.newAddproject = true;
       this.titlename = "popname";
     },
@@ -197,32 +181,28 @@ export default {
     },
     getCheckbox() {
       this.newAddproject = false;
-    },
-    household(){
-      this.lookHouseholds = true;
-      this.houseename = "detailTitle";
     }
   }
 };
 </script>
 
 <style>
-.addtables {
-  float: right;
+.select_label {
+  width: 120px;
 }
-.removeTable {
-  margin-bottom: 22px;
+.el-date-editor.el-input__inner.dateChecked {
+  width: 230px;
 }
-.addproject .moneyAuditPop {
-  margin: 0 !important;
+.nopass {
+  color: #f60;
 }
-.moneyAuditPop textarea{
-  height: 150px;
-}
-.addproject .proName{
+.auditPop {
   margin-top: 10px;
 }
-.addproject .proName .el-form-item{
-  margin-bottom: 0px;
+.auditPop textarea{
+  height: 150px;
+}
+.dialog-footer{
+  text-align: center;
 }
 </style>

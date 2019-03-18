@@ -148,12 +148,20 @@
       </el-form>
     </el-dialog>
 
-    
+    <!-- 未通过弹框 -->
+    <el-dialog class="addproject" :title="TimelineTitle[timeLine]" :visible.sync="TimelinePop">
+      <noPassPop></noPassPop>
+    </el-dialog>
   </section>
 </template>
 
 <script>
+import noPassPop from '../../components/timeLine.vue'
+
 export default {
+  components:{
+    noPassPop
+  },
   data() {
     return {
       formInline: {
@@ -180,6 +188,11 @@ export default {
       addproject: {
         popname: "新增项目",
         amend: "修改项目"
+      },
+      TimelinePop: false,
+      timeLine: '',
+      TimelineTitle: {
+        detailTimeLine:'详情'
       },
       checked: "",
       tableData: [
@@ -214,8 +227,8 @@ export default {
       this.titlename = "popname";
     },
     nopass(index, row) {
-      console.log(index);
-      console.log(row);
+      this.TimelinePop = true;
+      this.timeLine = "detailTimeLine";
     },
     getCheckbox() {
       this.newAddproject = false;
