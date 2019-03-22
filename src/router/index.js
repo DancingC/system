@@ -34,12 +34,13 @@ let routes = [{
         path: '/projectSubmit',
         name: '项目上报',
         component: () => import('@/pages/projectSubmit/projectSubmit')
-      },
-      {
-        path: '/test',
-        name: '测试页面',
-        component: () => import('@/pages/test')
       }
+      // ,
+      // {
+      //   path: '/test',
+      //   name: '测试页面',
+      //   component: () => import('@/pages/test')
+      // }
     ]
   }
 ]

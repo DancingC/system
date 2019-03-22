@@ -3,7 +3,7 @@
     <div class="hide">
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
         <el-form-item label="县（市、区）">
-          <el-select v-model="formInline.user.name" class="select_label">
+          <el-select v-model="formInline.user.area" class="select_label">
             <el-option label="船山区" value="船山区"></el-option>
             <el-option label="蓬溪县" value="蓬溪县"></el-option>
           </el-select>
@@ -23,8 +23,8 @@
           ></el-date-picker>
         </el-form-item>
         </el-form-item>
-      <el-form-item label="待审核">
-        <el-select v-model="formInline.user.name" class="select_label">
+      <el-form-item label="状态">
+        <el-select v-model="formInline.user.state" class="select_label">
           <el-option label="待审核" value="待审核"></el-option>
           <el-option label="待审定" value="待审定"></el-option>
           <el-option label="待批复" value="待批复"></el-option>
@@ -128,10 +128,9 @@ export default {
     return {
       formInline: {
         user: {
-          name: "",
-          date: "",
+          area: "",
           proName: "",
-          place: "",
+          state: "",
           start_end_time:""
         }
       },
