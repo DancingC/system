@@ -43,7 +43,7 @@
         <el-table-column prop="approvaFile" label="批复文件"></el-table-column>
         <el-table-column fixed="right" label="操作" width="60">
           <template slot-scope="scope">
-            <el-button type="text" size="small" @click="detail">详细</el-button>
+            <el-button type="text" @click="detail">详细</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -53,41 +53,41 @@
         <p class="proTitles">选择项目</p>
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="治理工程" name="first">
-            <governance></governance>
+            <governance @gover="reportGovernance"></governance>
           </el-tab-pane>
           <el-tab-pane label="排危除险" name="second">
-            <removeDanger></removeDanger>
+            <removeDanger @danger="reportDanger"></removeDanger>
           </el-tab-pane>
           <el-tab-pane label="搬迁避让" name="third">
-            <removal></removal>
+            <removal @remove="removal"></removal>
           </el-tab-pane>
         </el-tabs>
         <el-row :gutter="20" class="addBorder">
           <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
             <p>资金合计</p>
-            <el-form ref="form" :model="form" label-width="80px">
+            <el-form ref="form" :model="reportForm" label-width="80px" size="small">
               <el-form-item label="治理工程">
-                <el-input v-model="form.name"></el-input>
+                <el-input v-model="reportForm.zhili"></el-input>
               </el-form-item>
               <el-form-item label="排危除险">
-                <el-input v-model="form.name"></el-input>
+                <el-input v-model="reportForm.danger"></el-input>
               </el-form-item>
               <el-form-item label="避让搬迁">
-                <el-input v-model="form.name"></el-input>
+                <el-input v-model="reportForm.remove"></el-input>
               </el-form-item>
             </el-form>
           </el-col>
         </el-row>
         
         <div class="dialog-footer">
-          <el-button @click="reportpop = false">取 消</el-button>
-          <el-button type="primary" @click="getCheckbox">确 定</el-button>
+          <el-button @click="reportpop = false" size="small">取 消</el-button>
+          <el-button type="primary" @click="getCheckbox" size="small">确 定</el-button>
         </div>
       </el-dialog>
 
       <!-- 详细弹框 -->
       <el-dialog class="projectDetail" :title="addtitle[addFile]" :visible.sync="newAddFileVisble">
-        <el-form ref="form" :model="form" label-width="80px">
+        <el-form ref="form" :model="form" label-width="80px" size="small">
         <el-row :gutter="20" class="addBorder">
           <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
             <p>文件</p>
@@ -122,7 +122,7 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
             <p>资金</p>
-            <el-form ref="form" :model="form" label-width="80px">
+            <el-form ref="form" :model="form" label-width="80px" size="small">
               <el-form-item label="治理工程">
                 <el-input v-model="form.name"></el-input>
               </el-form-item>
@@ -147,8 +147,8 @@
           </el-tab-pane>
         </el-tabs>
         <div class="dialog-footer">
-          <el-button @click="newAddFileVisble = false">取 消</el-button>
-          <el-button type="primary" @click="getCheckbox">确 定</el-button>
+          <el-button @click="newAddFileVisble = false" size="small">取 消</el-button>
+          <el-button type="primary" @click="getCheckbox" size="small">确 定</el-button>
         </div>
         </el-form>
       </el-dialog>
@@ -182,6 +182,11 @@ export default {
       },
       form:{
         name:''
+      },
+      reportForm:{        //上报数据
+        zhili:"",
+        danger:"",
+        remove:""
       },
       addtitle: {
         popname: "项目详情"
@@ -226,6 +231,15 @@ export default {
     },
     getCheckbox() {
       this.newAddFileVisble = false;
+    },
+    reportGovernance(data){
+      this.reportForm.zhili = data
+    },
+    reportDanger(data){
+      this.reportForm.danger = data
+    },
+    removal(data){
+      this.reportForm.remove = data
     }
   }
 };

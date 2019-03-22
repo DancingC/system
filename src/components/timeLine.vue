@@ -1,32 +1,27 @@
 <template>
-  <div class="block">
-    <el-timeline :reverse="reverse" class="timeline">
-      <el-timeline-item
-        v-for="(activity, index) in activities"
-        :key="index"
-        :timestamp="activity.timestamp"
-      >{{activity.content}}</el-timeline-item>
-    </el-timeline>
-  </div>
+  <light-timeline :items='items'></light-timeline>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        reverse: true,
-        activities: [
+const theme = 'red';
+export default {
+  data () {
+    return {
+      items: [
         {
-          content: '李四审核项目，未通过',
-          timestamp: '2019-03-13'
-        }, {
-          content: '张三提交项目',
-          timestamp: '2019-03-11'
-        }]
-      };
+          tag: '2019-03-02',
+          content: '张三提交项目'
+        },
+        {
+          tag: '2019-03-13',
+          type: 'circle',
+          content: '李四审核项目，未通过'
+        }
+      ]
     }
-  };
-</script>
+  }
+}
+</script> 
 
 <style>
 .timeline{

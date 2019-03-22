@@ -42,9 +42,9 @@
         <el-table-column prop="area" label="县(市、区）"></el-table-column>
         <el-table-column prop="proName" label="项目名称"></el-table-column>
         <el-table-column label="现有工作基础（打√）">
-          <el-table-column prop="cityFile" label="方案编制审查">
+          <el-table-column label="方案编制审查">
             <template slot-scope="scope">
-              <el-checkbox v-model="checked">{{ scope.row.name }}</el-checkbox>
+              <el-checkbox v-model=" scope.row.fabzsc "></el-checkbox>
             </template>
           </el-table-column>
           <el-table-column prop="IssuedCapital" label>
@@ -59,7 +59,7 @@
           </el-table-column>
         </el-table-column>
         <el-table-column prop="gusuan" label="估算、概算及审定资金（万元）"></el-table-column>
-        <el-table-column prop="money" label="本次申请资金（万元）"></el-table-column>
+        <el-table-column prop="applyMoney" label="本次申请资金（万元）"></el-table-column>
         <el-table-column prop="remark" label="备注"></el-table-column>
         <el-table-column prop="state" label="状态">
           <template slot-scope="scope">
@@ -67,16 +67,15 @@
               @click="nopass(scope.$index, scope.row)"
               v-if="scope.row.state == 1"
               type="text"
-              size="small"
               class="nopass"
             >未通过</el-button>
-            <el-button type="text" size="small" v-else>待审核</el-button>
+            <el-button type="text" v-else>待审核</el-button>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="操作" width="90">
+        <el-table-column fixed="right" label="操作" width="100">
           <template slot-scope="scope" v-if="scope.row.state == 1">
-            <el-button type="text" size="small" class="delete">撤销</el-button>
-            <el-button @click="edit(scope.$index, scope.row)" type="text" size="small">修改</el-button>
+            <el-button type="text" class="delete" @click="revocation(scope.$index, tableData)">撤销</el-button>
+            <el-button @click="edit(scope.$index, scope.row)" type="text">修改</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -84,10 +83,10 @@
 
     <!-- 新增项目弹框 -->
     <el-dialog class="addproject" :title="addproject[titlename]" :visible.sync="newAddproject">
-      <el-form ref="form" :model="popform" label-width="120px">
+      <el-form ref="popform" :rules="popformRules" :model="popform" label-width="120px" size="small">
         <el-row :gutter="10">
           <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-            <el-form-item label="市（州）">
+            <el-form-item label="市（州）" prop="city">
               <el-select v-model="popform.city">
                 <el-option label="船山区" value="船山区"></el-option>
                 <el-option label="蓬溪县" value="蓬溪县"></el-option>
@@ -95,8 +94,8 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-            <el-form-item label="县（市、区）">
-              <el-select v-model="popform.county">
+            <el-form-item label="县（市、区）" prop="county">
+              <el-select v-model="popform.area">
                 <el-option label="船山区" value="船山区"></el-option>
                 <el-option label="蓬溪县" value="蓬溪县"></el-option>
               </el-select>
@@ -105,39 +104,32 @@
         </el-row>
         <el-row>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="项目名称">
+            <el-form-item label="项目名称" prop="proName">
               <el-input v-model="popform.proName" placeholder="项目名称"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row :gutter="10">
-          <el-form-item label="现有工作基础">
+        <el-row class="checboxBottom">
+          <el-form-item label="现有工作基础" prop="fabzsc">
             <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
-              <el-checkbox v-model="popform.takan">方案编制审查</el-checkbox>
+              <el-checkbox v-model="popform.fabzsc">方案编制审查</el-checkbox>
             </el-col>
           </el-form-item>
         </el-row>
-        <el-row :gutter="10">
-          <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-            <el-form-item label="审定资金(万)">
-              <el-input v-model="popform.auditMoney" placeholder="审定资金(万)"></el-input>
+        <el-row>
+            <el-form-item label="申请资金(万)" prop="applyMoney">
+              <el-input v-model="popform.applyMoney" placeholder="申请资金(万)"></el-input>
             </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-            <el-form-item label="本次申请资金(万)">
-              <el-input v-model="popform.applyMoney" placeholder="本次申请资金(万)"></el-input>
-            </el-form-item>
-          </el-col>
         </el-row>
-        <el-row :gutter="10">
-          <el-form-item label="备注">
+        <el-row>
+          <el-form-item label="备注" prop="remark">
             <el-input type="textarea" v-model="popform.remark"></el-input>
           </el-form-item>
         </el-row>
-        <el-row :gutter="10">
+        <el-row>
           <div class="dialog-footer">
-            <el-button @click="newAddproject = false">取 消</el-button>
-            <el-button type="primary" @click="getCheckbox">确 定</el-button>
+            <el-button @click="newAddproject = false" size="small">取 消</el-button>
+            <el-button type="primary" @click="getCheckbox('popform')" size="small">确 定</el-button>
           </div>
         </el-row>
       </el-form>
@@ -152,6 +144,14 @@
 
 <script>
 import noPassPop from "../../components/timeLine.vue";
+var d = new Date(new Date());
+var times = d.getFullYear() + '-' + (d.getMonth() + 1 < 10 ? "0" + (d.getMonth() + 1) : d.getMonth() + 1) + '-' + (d.getDate() < 10 ? "0" + (d.getDate()) : d.getDate())
+//  + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+
+//深拷贝对象 
+function deepClone(obj) {
+    return JSON.parse(JSON.stringify(obj))
+}
 
 export default {
   components: {
@@ -172,15 +172,30 @@ export default {
       newAddproject: false,
       titlename: "",
       popform: {
+        date: "",
         city: "",
-        county: "",
+        area: "",
         proName: "",
-        takan: "",
+        fabzsc: "",
         kancha: "",
         sheji: "",
         auditMoney: "",
         applyMoney: "",
         remark: ""
+      },
+      popformRules:{     //验证规则
+        city: [
+          { required: true, message: '请选择市（州）', trigger: 'change' }
+        ],
+        area: [
+          { required: true, message: '请选择县（市、区）', trigger: 'change' }
+        ],
+        proName: [
+          { required: true, message: '请输入项目名称', trigger: 'blur' }
+        ],
+        applyMoney:[
+          { required: true, message: '请输入申请资金', trigger: 'blur' }
+        ]
       },
       addproject: {
         popname: "新增项目",
@@ -201,7 +216,7 @@ export default {
           hazardType: "危岩",
           controlPlan: "工程治理",
           gusuan: "198.89",
-          money: "198.89",
+          applyMoney: "198.89",
           remark: "",
           state: "1"
         },
@@ -213,17 +228,20 @@ export default {
           hazardType: "危岩",
           controlPlan: "工程治理",
           gusuan: "198.89",
-          money: "198.89",
+          applyMoney: "198.89",
           remark: "",
           state: "0"
         }
       ]
     };
   },
+  created(){
+    this.popform.date = times
+  },
   methods: {
     edit(index, row) {
       this.newAddproject = true;
-      this.amend = "popname";
+      this.titlename = "amend";
     },
     newproject() {
       this.newAddproject = true;
@@ -233,9 +251,45 @@ export default {
       this.TimelinePop = true;
       this.timeLine = "detailTimeLine";
     },
-    getCheckbox() {
-      this.newAddproject = false;
+    getCheckbox(formName) {
+      let newObj = deepClone(this.popform);
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.tableData.push(newObj)
+          this.newAddproject = false;
+          this.$refs[formName].resetFields();    //清空输入框
+        } else {
+          return false;
+        }
+      });
+    },
+    revocation(index, row){      //撤销
+      this.$confirm('确定删除改项目吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        row.splice(index, 1);     //从table中删除当前数据
+        
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        });
+      }).catch(() => {
+        // this.$message({
+        //   type: 'info',
+        //   message: '已取消删除'
+        // });          
+      });
     }
   }
 };
 </script>
+
+<style>
+.addproject .checboxBottom .el-form-item{
+  margin-bottom: 10px;
+  margin-top: -10px;
+}
+</style>
+

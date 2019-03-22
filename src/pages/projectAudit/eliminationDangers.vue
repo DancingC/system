@@ -81,7 +81,7 @@
 
     <!-- 审核弹框 -->
     <el-dialog class="addproject" :title="addproject[titlename]" :visible.sync="newAddproject" width="30%">
-      <el-form ref="form" :model="popform">
+      <el-form ref="form" :model="popform" size="small">
         <el-row :gutter="10">
             <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
               <el-radio v-model="popform.radio" label="1">同意</el-radio>
@@ -97,8 +97,8 @@
         </el-row>
         <el-row :gutter="10">
         <div class="dialog-footer">
-          <el-button @click="newAddproject = false">取 消</el-button>
-          <el-button type="primary" @click="getCheckbox">确 定</el-button>
+          <el-button @click="newAddproject = false" size="small">取 消</el-button>
+          <el-button type="primary" @click="getCheckbox" size="small">确 定</el-button>
         </div>
         </el-row>
       </el-form>
@@ -136,15 +136,14 @@ export default {
         city: "",
         county: "",
         proName: "",
-        radio: "",
+        radio: "1",
         sheji: "",
         auditMoney:"",
         applyMoney: "",
         remark:""
       },
       addproject: {
-        popname: "新增项目",
-        amend: "修改项目"
+        popname: "审核",
       },
       TimelinePop: false,
       timeLine: '',

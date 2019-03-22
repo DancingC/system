@@ -63,14 +63,14 @@
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="90">
         <template slot-scope="scope" v-if="scope.row.state == 0">
-          <el-button @click="moneyAudit(scope.$index, scope.row)" type="text">审核</el-button>
+          <el-button @click="moneyAudit(scope.$index, scope.row)" type="text">资金审定</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <!-- 审核弹框 -->
     <el-dialog class="addproject" :title="addproject[titlename]" :visible.sync="newAddproject" width="30%">
-      <el-form ref="form" :model="popform">
+      <el-form ref="form" :model="popform" size="small">
         <el-row :gutter="10">
             <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
               <el-radio v-model="popform.radio" label="1">同意</el-radio>
@@ -80,19 +80,19 @@
             </el-col>
         </el-row>
         <el-row class="proName">
-          <el-form-item label="项目名称">
-            <el-input v-model="formInline.user.proName" placeholder="项目名称"></el-input>
+          <el-form-item label="估算、概算及审定资金（万元）">
+            <el-input v-model="popform.auditMoney"></el-input>
           </el-form-item>
         </el-row>
-        <el-row :gutter="10" class="moneyAuditPop">
+        <el-row class="moneyAuditPop">
           <el-form-item label="修改意见">
             <el-input type="textarea" v-model="popform.remark"></el-input>
           </el-form-item>
         </el-row>
         <el-row :gutter="10">
         <div class="dialog-footer">
-          <el-button @click="newAddproject = false">取 消</el-button>
-          <el-button type="primary" @click="getCheckbox">确 定</el-button>
+          <el-button @click="newAddproject = false" size="small">取 消</el-button>
+          <el-button type="primary" @click="getCheckbox" size="small">确 定</el-button>
         </div>
         </el-row>
       </el-form>
@@ -131,14 +131,9 @@ export default {
       newAddproject: false,
       titlename: "",
       popform: {
-        city: "",
-        county: "",
-        proName: "",
-        radio: "",
-        sheji: "",
-        auditMoney: "",
-        applyMoney: "",
-        remark: ""
+        radio: "1",
+        auditMoney:"",
+        remark:""
       },
       addproject: {
         popname: "项目审核"

@@ -2,9 +2,9 @@
   <el-container>
     <div class="headerBar">
       <el-header class="header_title">项目管理系统
-        <el-div class="headerBtn" v-model="isCollapse">
+        <div class="headerBtn" v-model="isCollapse">
         <i @click="headerBtn" v-model="status" class="el-icon-menu"></i>
-      </el-div>
+      </div>
       </el-header>
       
     </div>
@@ -58,6 +58,7 @@ export default {
 .headerBar .headerBtn {
   z-index: 101;
   position: relative;
+  display: inline-block;
 }
 body .el-table th.gutter {
   display: table-cell !important;

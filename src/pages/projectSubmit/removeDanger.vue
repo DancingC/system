@@ -4,6 +4,7 @@
         border
         @selection-change="handleSelectionChange"
         style="width:100%"
+        size="mini"
       >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="city" label="市（州）"></el-table-column>
@@ -12,17 +13,17 @@
       <el-table-column label="现有工作基础">
         <el-table-column prop="cityFile" label="专家踏勘">
           <template slot-scope="scope">
-            <el-checkbox>{{ scope.row.name }}</el-checkbox>
+            <el-checkbox v-model=" scope.row.takan "></el-checkbox>
           </template>
         </el-table-column>
         <el-table-column prop="IssuedCapital" label="方案编制审查">
           <template slot-scope="scope">
-            <el-checkbox>{{ scope.row.name }}</el-checkbox>
+            <el-checkbox v-model=" scope.row.bianzhi "></el-checkbox>
           </template>
         </el-table-column>
         <el-table-column prop="completeInvestment" label="设计成果审查">
           <template slot-scope="scope">
-            <el-checkbox>{{ scope.row.name }}</el-checkbox>
+            <el-checkbox v-model=" scope.row.chengguo "></el-checkbox>
           </template>
         </el-table-column>
       </el-table-column>
@@ -55,11 +56,9 @@ export default {
           area: '船山区',
           proName: '',
           proType: '工程治理',
-          hazardType: '危岩',
-          controlPlan: '工程治理',
-          cityFile: '√',
-          IssuedCapital: '√',
-          completeInvestment: '√',
+          takan:'',
+          bianzhi:'',
+          chengguo:'',
           gs_capital: '198.89',
           sq_capital: '198.89'
         },
@@ -67,14 +66,12 @@ export default {
           city: '遂宁市',
           area: '船山区',
           proName: '',
-          proType: '排危除险',
-          hazardType: '危岩',
-          controlPlan: '工程治理',
-          cityFile: '√',
-          IssuedCapital: '√',
-          completeInvestment: '√',
+          proType: '工程治理',
+          takan:'',
+          bianzhi:'',
+          chengguo:'',
           gs_capital: '198.89',
-          sq_capital: '198.89'
+          sq_capital: '231.89'
         }
       ],
       multipleSelection: []
@@ -83,6 +80,11 @@ export default {
   methods: {
     handleSelectionChange(val) {
       this.multipleSelection = val;
+      let all = 0;
+      val.forEach((el, index, obj) => {
+        all += Number(el.sq_capital)
+      })
+      all?this.$emit('danger', all):this.$emit('danger', '')
     }
   }
 }

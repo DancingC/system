@@ -27,13 +27,18 @@ let routes = [{
       },
       {
         path: '/projectReply',
-        name: '项目上报',
+        name: '项目审定',
         component: () => import('@/pages/projectReply/projectReply')
       },
       {
         path: '/projectSubmit',
-        name: '项目批复',
+        name: '项目上报',
         component: () => import('@/pages/projectSubmit/projectSubmit')
+      },
+      {
+        path: '/test',
+        name: '测试页面',
+        component: () => import('@/pages/test')
       }
     ]
   }

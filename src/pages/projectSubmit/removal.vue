@@ -1,9 +1,10 @@
 <template>
   <section>
-    <el-table :data="tableData" :span-method="objectSpanMethod" tooltip-effect="dark"
+    <el-table :data="tableData" tooltip-effect="dark"
         border
         @selection-change="handleSelectionChange"
         style="width:100%"
+        size="mini"
       >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="area" label="县区"></el-table-column>
@@ -62,6 +63,11 @@ export default {
   methods: {
     handleSelectionChange(val) {
       this.multipleSelection = val;
+      let all = 0;
+      val.forEach((el, index, obj) => {
+        all += Number(el.money)
+      })
+      all?this.$emit('remove', all):this.$emit('remove', '')
     }
   }
 }
