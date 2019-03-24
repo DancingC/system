@@ -19,6 +19,15 @@
           <el-menu-item :index="item.path" :key="item.path">{{item.name}}</el-menu-item>
         </template>
       </el-submenu>
+      <el-submenu index="2">
+        <template slot="title">
+          <i class="el-icon-tickets"></i>
+          <span slot="title">项目管理</span>
+        </template>
+        <template v-for="item in $router.options.routes[2].children" v-if="!item.hidden">
+          <el-menu-item :index="item.path" :key="item.path">{{item.name}}</el-menu-item>
+        </template>
+      </el-submenu>
     </el-menu>
   </div>
 </template>

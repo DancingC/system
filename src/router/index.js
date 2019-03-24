@@ -4,7 +4,8 @@ import layout from '@/pages/layout/layout'
 
 Vue.use(Router)
 
-let routes = [{
+let routes = [
+  {
     path: '/login',
     component: () => import('@/pages/login/login'),
     hidden: true
@@ -41,6 +42,49 @@ let routes = [{
       //   name: '测试页面',
       //   component: () => import('@/pages/test')
       // }
+    ]
+  },
+  {
+    path: '/',
+    component: layout,
+    name: '项目管理',
+    hidden: true,
+    children: [
+      {
+        path: '/pro_zzjc',
+        name: '专职监测',
+        component: () => import('@/pages/projectManage/pro_zzjc')
+      },
+      {
+        path: '/pro_gczl',
+        name: '工程治理',
+        component: () => import('@/pages/projectManage/pro_gczl')
+      },
+      {
+        path: '/pro_pwcx',
+        name: '排危除险',
+        component: () => import('@/pages/projectManage/pro_pwcx')
+      },
+      {
+        path: '/pro_zhzz',
+        name: '综合整治',
+        component: () => import('@/pages/projectManage/pro_zhzz')
+      },
+      {
+        path: '/pro_bxbq',
+        name: '避险搬迁',
+        component: () => import('@/pages/projectManage/pro_bxbq')
+      },
+      {
+        path: '/pro_nljs',
+        name: '能力建设',
+        component: () => import('@/pages/projectManage/pro_nljs')
+      },
+      {
+        path: '/pro_zdhjc',
+        name: '自动化监测',
+        component: () => import('@/pages/projectManage/pro_zdhjc')
+      }
     ]
   }
 ]
