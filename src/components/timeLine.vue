@@ -1,20 +1,25 @@
 <template>
-  <light-timeline :items='items'></light-timeline>
+  <el-timeline :reverse="reverse">
+    <el-timeline-item
+      v-for="(activity, index) in activities"
+      :key="index"
+      :timestamp="activity.timestamp">
+      {{activity.content}}
+    </el-timeline-item>
+  </el-timeline>
 </template>
 
 <script>
-const theme = 'red';
 export default {
   data () {
     return {
-      items: [
+      activities: [
         {
-          tag: '2019-03-02',
+          timestamp: '2019-03-02',
           content: '张三提交项目'
         },
         {
-          tag: '2019-03-13',
-          type: 'circle',
+          timestamp: '2019-03-13',
           content: '李四审核项目，未通过'
         }
       ]
@@ -22,9 +27,3 @@ export default {
   }
 }
 </script> 
-
-<style>
-.timeline{
-  margin: 15px 0 0 21px;
-}
-</style>

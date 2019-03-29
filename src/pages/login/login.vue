@@ -1,9 +1,14 @@
 <template>
-    <h1>登录页面</h1>
+    <el-button @click="content">登录页面</el-button>
 </template>
 
 <script>
 export default {
-    name: 'login'
+    name: 'login',
+    methods:{
+        content(){
+            this.$router.push({name:"主页面"})
+        }
+    }
 }
 </script>

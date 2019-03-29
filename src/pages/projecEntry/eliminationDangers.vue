@@ -36,7 +36,7 @@
       </el-form>
 
       <el-table :data="tableData" border style="width:100%">
-        <el-table-column type="index" label="序号"></el-table-column>
+        <el-table-column type="index" label="序号" width="50"></el-table-column>
         <el-table-column prop="date" label="时间"></el-table-column>
         <el-table-column prop="city" label="市（州）"></el-table-column>
         <el-table-column prop="area" label="县(市、区）"></el-table-column>
@@ -136,7 +136,7 @@
     </el-dialog>
 
     <!-- 未通过弹框 -->
-    <el-dialog class="addproject" :title="TimelineTitle[timeLine]" :visible.sync="TimelinePop">
+    <el-dialog class="addproject" :title="TimelineTitle[timeLine]" :visible.sync="TimelinePop" width="30%">
       <noPassPop></noPassPop>
     </el-dialog>
   </section>

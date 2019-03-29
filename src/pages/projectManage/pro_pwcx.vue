@@ -77,7 +77,7 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
             <el-form-item label="年份" prop="area">
-              <el-date-picker v-model="value1" type="date" class="resetWidth" placeholder="选择日期"></el-date-picker>
+              <el-date-picker v-model="popform.date" type="date" class="resetWidth" placeholder="选择日期"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>

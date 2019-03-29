@@ -100,7 +100,7 @@
     </el-dialog>
 
     <!-- 未通过弹框 -->
-    <el-dialog class="addproject" :title="TimelineTitle[timeLine]" :visible.sync="TimelinePop">
+    <el-dialog class="addproject" :title="TimelineTitle[timeLine]" :visible.sync="TimelinePop" width="30%">
       <noPassPop></noPassPop>
     </el-dialog>
   </section>

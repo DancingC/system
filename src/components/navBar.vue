@@ -7,6 +7,7 @@
       router
       @open="handleOpen" 
       :default-openeds="openeds"
+      :unique-opened="true"
       @close="handleClose" 
       :collapse="isCollapse"
     >
@@ -15,7 +16,7 @@
           <i class="el-icon-tickets"></i>
           <span slot="title">项目储备库</span>
         </template>
-        <template v-for="item in $router.options.routes[1].children" v-if="!item.hidden">
+        <template v-for="item in $router.options.routes[0].children[1].children[0].children" v-if="!item.hidden">
           <el-menu-item :index="item.path" :key="item.path">{{item.name}}</el-menu-item>
         </template>
       </el-submenu>
@@ -24,7 +25,7 @@
           <i class="el-icon-tickets"></i>
           <span slot="title">项目管理</span>
         </template>
-        <template v-for="item in $router.options.routes[2].children" v-if="!item.hidden">
+        <template v-for="item in $router.options.routes[0].children[1].children[1].children" v-if="!item.hidden">
           <el-menu-item :index="item.path" :key="item.path">{{item.name}}</el-menu-item>
         </template>
       </el-submenu>
