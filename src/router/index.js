@@ -17,9 +17,10 @@ let routes = [
       },
       {
         path: '/content',
+        redirect: '/pro_gczl',
         component: () => import('@/pages/content'),
-        name:'主页面',
-        children:[
+        name: '主页面',
+        children: [
           {
             path: '/',
             component: layout,
@@ -98,7 +99,7 @@ let routes = [
             ]
           }
         ]
-      },
+      }
     ]
   }  
 ]
